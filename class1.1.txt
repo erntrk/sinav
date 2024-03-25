@@ -1,0 +1,71 @@
+package sinavcalisma;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+public class Sinavcalisma {
+
+    public static void main(String[] args) {
+        Scanner program = new Scanner(System.in);
+        List<String> isim = new ArrayList<String>();
+        List<Integer> vize = new ArrayList<>();
+        List<Integer> Final = new ArrayList<>();
+        List<Double> basari = new ArrayList<>();
+        byte menu;
+
+        for (;;) {
+
+            fonklar.Menu();
+            menu = program.nextByte();
+
+            switch (menu) {
+            case 1: {
+                fonklar.Kayıt(program, isim, vize, Final, basari);
+                break;
+            }
+            case 2: {
+                fonklar.listeleme(isim, vize, Final, basari);
+                break;
+            }
+
+            case 3: {
+
+                System.out.println("Aramak istediğiniz ismi yazınız: ");
+                String ad = program.next();
+                fonklar.arama(ad, isim, vize, Final, basari);
+
+                break;
+            }
+
+            case 4: {
+
+                fonklar.ortalama(basari);
+                break;
+            }
+
+            case 5: {
+
+                fonklar.enk(isim, vize, Final, basari);
+                break;
+            }
+
+            case 6: {
+                fonklar.enb(isim, vize, Final, basari);
+                break;
+            }
+
+            case 7:
+                System.exit(0);
+                System.out.println("Programı kapattınız.");
+
+            default: {
+                System.out.println("Menüde olmayan bir değer girdiniz.");
+                break;
+            }
+            }
+        }
+    }
+
+}

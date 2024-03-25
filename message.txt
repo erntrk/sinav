@@ -1,0 +1,117 @@
+package com.mycompany.sinavcalisma2;
+
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ *
+ * @author jamal
+ */
+public class fonklar {
+    
+    public static void Menu(){
+        System.out.println(" \n 1) Yeni kişi ekleyin \n 2) Tüm herkesi listeleyin \n 3) Bir kişiyi arayın \n 4) Ortalama fatura tutarını görüntüleyin "
+                + "\n 5) En fazla ve En az faturaya sahip kişileri görüntüleyin \n 6) Programı kapatın");
+    }
+
+    static void isimgir(Scanner program, List<String> isim, List<Integer> INT, List<Integer> DK, List<Integer> SMS, List<Double> INTF, List<Double> DKF, List<Double> SMSF, List<Double> fatura) {
+         
+        System.out.print("Girmek istediğiniz ismi yazınız: ");
+        isim.add(program.next());
+        
+        System.out.print(isim.get(isim.size()-1) + " isili kişinin internet kullanımını giriniz: ");
+        INT.add(program.nextInt());
+        
+        System.out.print(isim.get(isim.size()-1) + " isili kişinin dakika kullanımını giriniz: ");
+         DK.add(program.nextInt());
+         
+        System.out.print(isim.get(isim.size()-1) + " isili kişinin SMS sayısını giriniz: ");
+        SMS.add(program.nextInt());
+        
+        double INTdummy =+ (INT.get(INT.size()-1) * 12);
+        INTF.add(INTdummy);
+        
+        double DKdummy =+ (DK.get(DK.size()-1)* 0.50);
+        DKF.add(DKdummy);
+        
+        double SMSdummy =+ (SMS.get(SMS.size()-1)*0.40);
+        SMSF.add(SMSdummy);
+        
+        double totaldummy = INTdummy + DKdummy + SMSdummy;
+        fatura.add(totaldummy);
+      }
+    
+    
+      public static void yazdır (int i, String isim, int INT, int DK , int SMS, double INTF, double DKF, double SMSF, double fatura){
+          System.out.println("Kişinin müşteri numarası: " + (i+1));
+          System.out.println(isim + " isimli kişinin bilgilerini görüntülüyorsunuz ");
+          System.out.println("Kişinin yaptığı internet kullanımı : " + INT + "\nİnternet kullanımına bağlı faturası : " + INTF);
+          System.out.println("Kişinin yaptığı telefon kullanımı : " + DK + " dakika \nTelefon kullanımına bağlı faturası : " + DKF);
+          System.out.println("Kişinin yaptığı SMS kullanımı : " + SMS + " \nSMS kullanımına bağlı faturası : " + SMSF);
+          System.out.println("Kişinin kullanımlarına bağlı total faturası: " + fatura);
+          System.out.println("-------------------------------------");
+      }
+    
+    
+    public static void listele(List<String> isim, List<Integer> INT, List<Integer> DK, List<Integer> SMS, List<Double> INTF, List<Double> DKF, List<Double> SMSF, List<Double> fatura){
+        for (int i = 0; i < isim.size(); i++) {
+            
+            yazdır(i, isim.get(i), INT.get(i), DK.get(i), SMS.get(i), INTF.get(i), DKF.get(i), SMSF.get(i), fatura.get(i));
+            
+        }
+    }
+    
+    public static void arama(String aranan, List<String> isim, List<Integer> INT, List<Integer> DK, List<Integer> SMS, List<Double> INTF, List<Double> DKF, List<Double> SMSF, List<Double> fatura){
+        for (int i = 0; i < isim.size(); i++) {
+            
+            if(isim.get(i).equalsIgnoreCase(aranan)){
+                
+                  yazdır(i, isim.get(i), INT.get(i), DK.get(i), SMS.get(i), INTF.get(i), DKF.get(i), SMSF.get(i), fatura.get(i));  
+            }
+            
+        }
+    }
+    
+    public static void enb(List<String> isim, List<Integer> INT, List<Integer> DK, List<Integer> SMS, List<Double> INTF, List<Double> DKF, List<Double> SMSF, List<Double> fatura){
+        double EN = -1;
+        double EK = 100000000;
+        for (int i = 0; i < fatura.size(); i++) {
+            
+            if(fatura.get(i)>EN) EN = fatura.get(i);
+            
+        }
+        
+        for (int i = 0; i < fatura.size(); i++) {
+            
+            if(fatura.get(i) == EN) {
+                System.out.println("EN YÜKSEK FATURAYA SAHİP KİŞİ !!");
+            yazdır(i, isim.get(i), INT.get(i), DK.get(i), SMS.get(i), INTF.get(i), DKF.get(i), SMSF.get(i), fatura.get(i));
+            }
+        }
+        
+        for (int i = 0; i < isim.size(); i++) {
+            
+            if(fatura.get(i)<EK)EK = fatura.get(i);
+            
+        }
+        
+        for (int i = 0; i < isim.size(); i++) {
+            
+            if(fatura.get(i)== EK){
+            System.out.println("EN AZ FATURAYA SAHİP KİŞİ !!");
+            yazdır(i, isim.get(i), INT.get(i), DK.get(i), SMS.get(i), INTF.get(i), DKF.get(i), SMSF.get(i), fatura.get(i));  
+            }
+            
+        }
+    }
+    
+    public static void ort(List<Double> fatura){
+        double ortalamasayı = 0;
+        
+        for (int i = 0; i < fatura.size(); i++) {
+            ortalamasayı += fatura.get(i);
+        }
+        
+        System.out.println("Ortalam fatura tutarı = " + (ortalamasayı/fatura.size()));
+    }
+}

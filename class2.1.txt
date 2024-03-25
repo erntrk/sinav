@@ -1,0 +1,104 @@
+package sinavcalisma;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class fonklar {
+
+    public static void Menu() {
+        System.out.println(
+                "\n 1) Listeye isim ekleyin \n 2) Tüm Kişileri Listeleyin \n 3) Bir öğrencinin bilgilerine bakın "
+                        + "\n 4) Tüm sınıfın ortalama başarı notu \n 5) En düşük nota sahip kişi ve notu "
+                        + "\n 6) En yüksek nota sahip kişi ve notu \n 7) Programı kapatın ");
+    }
+
+    public static void Kayıt(Scanner program, List<String> isim, List<Integer> vize, List<Integer> Final, List<Double> basari) {
+        double dummy;
+        System.out.println("Eklemek istediğiniz ismi yazınız: ");
+        isim.add(program.next());
+        System.out.println(isim.get(isim.size() - 1) + " " + "isimli kişinin vize notunu giriniz: ");
+        vize.add(program.nextInt());
+        System.out.println(isim.get(isim.size() - 1) + " " + "isimli kişinin final notunu giriniz: ");
+        Final.add(program.nextInt());
+        dummy = (Final.get(Final.size() - 1) + vize.get(vize.size() - 1)) / 2;
+        basari.add(dummy);
+
+        System.out.println(isim.get(isim.size() - 1) + " isimli kişiyi başarıyla eklediniz.");
+    }
+
+    public static void isimyaz(int b, String isim, Integer vize, Integer Final, Double basari) {
+        System.out.println("Öğrenci Numarası: " + (b + 1));
+        System.out.println("Öğrencinin ismi: " + isim);
+        System.out.println("Öğrencinin  vize notu: " + vize);
+        System.out.println("Öğrencinin Final notu: " + Final);
+        System.out.println("Öğrencinin Başarı Notu: " + basari);
+        System.out.println("-----------------------------------");
+    }
+
+    public static void listeleme(List<String> isim, List<Integer> vize, List<Integer> Final, List<Double> basari) {
+
+        for (int i = 0; i < isim.size(); i++) {
+            int b = isim.indexOf(isim.get(i));
+            isimyaz(b, isim.get(i), vize.get(i), Final.get(i), basari.get(i));
+        }
+    }
+
+    public static void arama(String ad, List<String> isim, List<Integer> vize, List<Integer> Final,
+            List<Double> basari) {
+
+        for (int i = 0; i < isim.size(); i++) {
+
+            if (ad.equalsIgnoreCase(isim.get(i))) {
+                isimyaz(i, isim.get(i), vize.get(i), Final.get(i), basari.get(i));
+            }
+        }
+    }
+
+    public static void ortalama(List<Double> basari) {
+
+        int dummyb = 0;
+
+        for (int i = 0; i < basari.size(); i++) {
+
+            dummyb += basari.get(i);
+
+        }
+
+        double ortalama = dummyb / basari.size();
+        System.out.println("Sınıfın ortalaması: " + ortalama);
+    }
+
+    public static void enk(List<String> isim, List<Integer> vize, List<Integer> Final, List<Double> basari) {
+
+        double gucuk = 200;
+        for (int i = 0; i < isim.size(); i++) {
+            if (basari.get(i) < gucuk)
+                gucuk = basari.get(i);
+        }
+        for (int i = 0; i < isim.size(); i++) {
+            if (gucuk == basari.get(i)) {
+                System.out.println("En küçük başarı notuna sahip kişiyi görüntülüyorsunuz");
+                isimyaz(i, isim.get(i), vize.get(i), Final.get(i), basari.get(i));
+
+            }
+        }
+    }
+
+    public static void enb(List<String> isim, List<Integer> vize, List<Integer> Final, List<Double> basari) {
+        double buuk = -1;
+
+        for (int i = 0; i < isim.size(); i++) {
+            if (basari.get(i) > buuk)
+                buuk = basari.get(i);
+
+        }
+
+        for (int i = 0; i < isim.size(); i++) {
+            if (buuk == basari.get(i)) {
+                System.out.println("En büyük başarı notuna sahip kişiyi görüntülüyorsunuz");
+                isimyaz(i, isim.get(i), vize.get(i), Final.get(i), basari.get(i));
+            }
+        }
+    }
+}
